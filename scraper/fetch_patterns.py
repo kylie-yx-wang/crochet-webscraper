@@ -2,19 +2,22 @@ import requests
 import os
 import json
 from dotenv import load_dotenv
+import time
 
-load_dotenv()
+# load dotenv - look in the parent directory
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
+AUTH = (os.getenv("RAVELRY_USER"), os.getenv("RAVELRY_PASS"))
 AUTH = (os.getenv("RAVELRY_USER"), os.getenv("RAVELRY_PASS"))
 BASE  = "https://api.ravelry.com"
 
 def search_patterns(query: str, page_size: int = 20) -> list[dict]:
     params = {
-        "search":     query,
+        "query":     query,
         "craft":      "crochet",      # filter to crochet only
         "sort":       "popularity",   # most saved/popular first
         "page_size":  page_size,
-        "pc":         "main",         # main pattern category
+        #"pc":         "main",         # main pattern category
     }
     r = requests.get(f"{BASE}/patterns/search.json", params=params, auth=AUTH)
     r.raise_for_status()
@@ -41,11 +44,11 @@ def normalize(raw: dict) -> dict:
         "skill_level":   raw.get("difficulty_count", ""),
     }
 
-SEED_QUERIES = [
-    "beginner hat", "baby blanket", "amigurumi", "granny square",
-    "cowl scarf", "sweater cardigan", "tote bag", "dishcloth",
-    "socks", "christmas ornament"
-]
+SEED_QUERIES = ["beginner hat", "baby blanket", "amigurumi", "granny square"]
+#     "beginner hat", "baby blanket", "amigurumi", "granny square",
+#     "cowl scarf", "sweater cardigan", "tote bag", "dishcloth",
+#     "socks", "christmas ornament"
+# ]
 
 def seed_database(output_path="data/patterns.json"):
     all_patterns = {}
@@ -57,6 +60,7 @@ def seed_database(output_path="data/patterns.json"):
         for s in summaries:
             if s["id"] in all_patterns:
                 continue  # skip duplicates across queries
+            time.sleep(0.2)
             detail = get_pattern_detail(s["id"])
             all_patterns[s["id"]] = normalize(detail)
 
