@@ -44,11 +44,59 @@ def normalize(raw: dict) -> dict:
         "skill_level":   raw.get("difficulty_count", ""),
     }
 
-SEED_QUERIES = ["beginner hat", "baby blanket", "amigurumi", "granny square"]
-#     "beginner hat", "baby blanket", "amigurumi", "granny square",
-#     "cowl scarf", "sweater cardigan", "tote bag", "dishcloth",
-#     "socks", "christmas ornament"
-# ]
+SEED_QUERIES = [
+    # --- THE GENERIC ESSENTIALS ---
+    "scarf", "infinity scarf", "skinny scarf", "cowl", "shawl",
+    "hat", "beanie", "slouchy hat", "beret", "headband",
+    "bag", "tote bag", "market bag", "handbag", "purse", "backpack",
+    "sweater", "cardigan", "pullover", "vest", "top", "dress",
+    
+    # --- ROOM DECOR & HOUSEWARES ---
+    "blanket", "afghan", "throw", "pillow", "cushion",
+    "rug", "carpet", "wall hanging", "tapestry", "garland", "bunting",
+    "basket", "storage bin", "trinket dish", "vase cover", "lamp shade",
+    "curtain", "valance", "table runner", "placemat", "coaster",
+    
+    # --- KITCHEN & BATH ---
+    "dishcloth", "washcloth", "scrubbie", "towel", "pot holder", "trivet",
+    "soap saver", "bath mat", "toilet paper cover",
+    
+    # --- ACCESSORIES (VARIOUS) ---
+    "gloves", "mittens", "fingerless mitts", "wrist warmers",
+    "socks", "slippers", "booties", "leg warmers",
+    "belt", "jewelry", "earrings", "necklace", "bracelet", "scrunchie",
+    "beginner hat", "baby blanket", "amigurumi", "granny square",
+    "cowl scarf", "sweater cardigan", "tote bag", "dishcloth",
+    "socks", "christmas ornament",
+    # --- WEARABLES (MODERN & VINTAGE) ---
+    "1970s retro vest", "vintage lace collar", "granny square coat", "mesh festival top",
+    "balloon sleeve sweater", "off-the-shoulder top", "halter neck bikini", "summer sarong",
+    "oversized hoodie", "alpine stitch sweater", "cable knit cardigan",
+    
+    # --- PET ACCESSORIES (THE NICHE) ---
+    "dog sweater for small dogs", "cat hat with ear holes", "pet bandana", "adjustable dog collar",
+    "cat cave bed", "interactive cat toy", "pet bowtie", "dog snood",
+    
+    # --- ACCESSORIES & BAGS ---
+    "checkered tote bag", "clutch purse", "crossbody phone bag", "drawstring backpack",
+    "checkered bucket hat", "beret", "fingerless mitts", "lacy shawl",
+    
+    # --- HOME & LIFESTYLE ---
+    "hanging fruit basket", "macrame style plant hanger", "textured throw pillow", 
+    "striped afghan", "checkered blanket", "round floor pouf", "yoga mat strap",
+    
+    # --- THE "WEIRD" & TRENDY ---
+    "crochet food keychain", "fidget toy amigurumi", "emotional support pickle", 
+    "potted plant (no water)", "mushroom decor", "jellyfish wall hanging",
+    
+    # --- HOLIDAYS ---
+    "christmas tree skirt", "advent calendar pockets", "easter bunny ears", 
+    "spooky spiderweb decor", "turkey hat", "st patricks clover",
+    
+    # --- TECHNIQUES (CRITICAL FOR LLM CONTEXT) ---
+    "overlay mosaic", "interlocking crochet", "corner to corner (C2C)", 
+    "tunisian entrelac", "broomstick lace", "hairpin lace", "irish lace"
+]
 
 def seed_database(output_path="data/patterns.json"):
     all_patterns = {}
