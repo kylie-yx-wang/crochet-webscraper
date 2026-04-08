@@ -40,7 +40,7 @@ def normalize(raw: dict) -> dict:
         "description":   raw.get("notes_plain", "") or raw.get("notes_html", ""),
         "tags": [t["name"] for t in raw.get("pattern_attributes", []) if "name" in t],
         "yarn_weight":   raw.get("yarn_weight", {}).get("name", "") if raw.get("yarn_weight") else "",
-        "hook_size":     raw.get("gauge_divisor", ""),
+        "hook_size": str(raw.get("gauge_divisor", "")) if raw.get("gauge_divisor") else "",
         "skill_level":   raw.get("difficulty_count", ""),
     }
 
